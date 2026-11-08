@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#d9f3ff" />
+  <meta name="description" content="Uma cantada interativa feita especialmente para a Lívia." />
+  <title>Uma pergunta para a Lívia 🌊</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Fundo: praia, ondas e pétalas criadas pelo JavaScript. -->
+  <div class="background" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="sea"></div>
+    <div class="wave wave--back"></div>
+    <div class="wave wave--front"></div>
+  </div>
+  <div id="petals" class="petals" aria-hidden="true"></div>
+
+  <main class="page">
+    <!-- TELA 1: troque a pergunta no texto dentro do h1. -->
+    <section class="card" id="questionStage" aria-labelledby="questionTitle">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> UMA PERGUNTA ESPECIAL</div>
+      <span class="mini-icon" aria-hidden="true">🌊</span>
+      <p class="greeting">Ei, Lívia!</p>
+      <h1 id="questionTitle">
+        Já que o <span class="highlight">camarão com abacaxi</span> passou no teu teste…
+        será que essa cantada merece um sorrisinho também? <span class="eyes">👀</span>
+      </h1>
+      <p class="subtitle"> Parece que uma das opções não concorda contigo...</p>
+
+      <!-- Os botões ficam numa área própria, separada do texto. -->
+      <div class="button-arena" id="buttonArena" aria-label="Escolha sua resposta">
+        <button type="button" class="choice choice--yes" id="yesButton">Sim </button>
+        <button type="button" class="choice choice--no" id="noButton">Não </button>
+      </div>
+      <p class="hint" id="hint">Dica: o “Não” não aceita a tua resposta.</p>
+    </section>
+
+    <!-- TELA 2: aparece só depois do clique em “Sim”. -->
+    <section class="card card--result" id="resultStage" aria-labelledby="resultTitle" hidden>
+      <div class="eyebrow"><span class="eyebrow-dot"></span> FASE 2 DESBLOQUEADA</div>
+      <div class="result-symbol" aria-hidden="true">✓</div>
+      <p class="greeting">Olha só, Lívia…</p>
+      <h2 id="resultTitle" tabindex="-1">Que sorrisinho bonito em.</h2>
+      <!-- MENSAGEM FINAL: personalize estes textos à vontade. -->
+      <p class="result-copy">
+        
+      </p>
+      <div class="status-line">
+        <span>🍤 Camarão com abacaxi</span><strong>APROVADO</strong>
+      </div>
+      <div class="status-line">
+        <span>💻 Cantada programada</span><strong>APROVADA?</strong>
+      </div>
+      <button class="reveal-button" type="button" id="revealButton">Abrir mensagem secreta ✨</button>
+      <p class="secret-message" id="secretMessage" hidden>
+        Eu consegui arrancar pelo menos um sorrisinho teu?
+      </p>
+      <button class="restart-button" type="button" id="restartButton">↻ Ver a pergunta de novo</button>
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+    </section>
+    <p class="footer-note"></p>
+  </main>
+</body>
+</html>

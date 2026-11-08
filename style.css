@@ -1,0 +1,153 @@
+/* CORES: altere estes valores para mudar a paleta da página. */
+:root {
+  --blue-dark: #143c5c;
+  --blue: #176c9c;
+  --blue-bright: #168dc4;
+  --sky: #d9f3ff;
+  --sand: #fff3dc;
+  --white: #fff;
+  --radius: 26px;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--blue-dark);
+  background: var(--sky);
+  overflow-x: hidden;
+}
+[hidden] { display: none !important; }
+button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 3px solid #084f84; outline-offset: 4px; }
+
+/* FUNDO ANIMADO: elementos praianos criados apenas com CSS. */
+.background { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+  background: linear-gradient(180deg, #b9e9fc 0%, #e6f8fc 48%, #d9f3ed 72%, #fff0cf 100%);
+}
+.sun { position: absolute; top: 9%; right: 14%; width: 118px; height: 118px; border-radius: 50%;
+  background: #ffe3a1; box-shadow: 0 0 0 24px #ffe9b140, 0 0 95px #ffe1a599;
+}
+.sea { position: absolute; left: 0; right: 0; bottom: 0; height: 40%;
+  background: linear-gradient(180deg, #7bd2dfaa, #3aabd6a0 50%, #1c92c270);
+  clip-path: polygon(0 11%, 10% 9%, 21% 12%, 34% 8%, 48% 12%, 62% 8%, 77% 12%, 90% 8%, 100% 11%, 100% 100%, 0 100%);
+}
+.wave { position: absolute; left: -12%; width: 124%; height: 100px; border-radius: 50% 50% 0 0;
+  animation: ocean 7s ease-in-out infinite alternate;
+}
+.wave--back { bottom: 8%; background: #b1e5e6a1; }
+.wave--front { bottom: -38px; background: #fff0d1bd; animation-duration: 9s; animation-direction: alternate-reverse; }
+@keyframes ocean { from { transform: translateX(-2%) scaleY(.92); } to { transform: translateX(2%) scaleY(1.12); } }
+
+/* PÉTALAS: quantidade, cores e velocidade são definidas também no script.js. */
+.petals { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.petal { position: absolute; top: -36px; width: 11px; height: 17px;
+  border-radius: 75% 0 75% 0; background: #ffcfbc; opacity: .5;
+  animation: fall linear infinite; will-change: transform;
+}
+.petal:nth-child(3n) { background: #fff8e9; }
+.petal:nth-child(4n) { background: #e6a8aa; }
+@keyframes fall {
+  from { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+  to   { transform: translate3d(75px, 110vh, 0) rotate(440deg); }
+}
+
+/* CARTÃO E TIPOGRAFIA. */
+.page { min-height: 100vh; min-height: 100dvh; padding: 24px 16px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  position: relative; z-index: 2;
+}
+.card { width: min(100%, 620px); position: relative; padding: clamp(24px, 5vw, 44px);
+  text-align: center; background: #ffffffdf; border: 1px solid #ffffffee;
+  border-radius: var(--radius); box-shadow: 0 24px 80px #1e59772e, 0 2px 12px #1e59770d;
+  backdrop-filter: blur(13px); -webkit-backdrop-filter: blur(13px);
+  animation: cardIn .55s ease-out both;
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+  font-size: 11px; font-weight: 800; letter-spacing: .13em; color: #25769a;
+  background: #e2f4fb; border-radius: 100px;
+}
+.eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #39a8d1; }
+.mini-icon { display: block; margin-top: 17px; font-size: 27px; }
+.greeting { margin: 12px 0 8px; font-size: 18px; font-weight: 800; color: #277ea5; }
+h1, h2 { margin: 0 auto; max-width: 530px; font-weight: 850; letter-spacing: -.045em; line-height: 1.2; }
+h1 { font-size: clamp(25px, 4.4vw, 37px); }
+h2 { font-size: clamp(26px, 4.8vw, 39px); }
+.highlight { color: var(--blue-bright); }
+.eyes { white-space: nowrap; }
+.subtitle { color: #56778e; font-size: 14px; line-height: 1.6; margin: 17px auto 0; max-width: 410px; }
+
+/* ÁREA DOS BOTÕES: o “Não” nunca sai daqui, então não cobre a pergunta. */
+.button-arena { position: relative; height: 185px; width: min(100%, 460px); margin: 18px auto 0;
+  background: #ecf8fcaa; border: 1px solid #c8eaf2; border-radius: 18px;
+}
+.choice { position: absolute; top: 32px; height: 50px; width: 110px;
+  border: none; border-radius: 13px; font-weight: 800; font-size: 16px;
+  touch-action: manipulation; user-select: none; -webkit-user-select: none;
+}
+.choice--yes { left: calc(50% - 116px); z-index: 2; color: white; background: var(--blue);
+  box-shadow: 0 8px 22px #176c9c48; transition: background .2s, transform .2s;
+}
+.choice--yes:hover { background: #0f5985; transform: translateY(-2px); }
+.choice--no { left: calc(50% + 6px); z-index: 3; color: #24536e; background: #fff;
+  border: 1px solid #c2e4ee; box-shadow: 0 6px 18px #315c791a;
+  /* Sem transição de posição para não atravessar e cobrir o botão Sim. */
+}
+.choice--no.dodging { animation: blinkJump .24s ease-out; }
+@keyframes blinkJump { from { opacity: .4; transform: scale(.82); } to { opacity: 1; transform: scale(1); } }
+.hint { margin: 12px 0 0; font-size: 12px; color: #628296; }
+.footer-note { text-align: center; margin: 16px 4px 0; font-size: 12px; color: #285c75; text-shadow: 0 1px 1px #fff8; }
+
+/* SEGUNDA ETAPA: aparece ao clicar em Sim. */
+.card--result { overflow: hidden; }
+.result-symbol { width: 64px; height: 64px; display: grid; place-items: center; margin: 22px auto 8px;
+  border-radius: 50%; background: #d6f4e8; color: #158568; font-size: 36px; font-weight: 800;
+  box-shadow: 0 0 0 9px #d6f4e85e; animation: pop .55s .15s both;
+}
+@keyframes pop { from { transform: scale(.3) rotate(-25deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+.result-copy { max-width: 480px; line-height: 1.65; color: #58778c; margin: 18px auto 23px; }
+.status-line { display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  text-align: left; padding: 13px 15px; margin: 9px 0; border-radius: 12px; background: #eaf6fb;
+  font-size: 13px; color: #2f5b75;
+}
+.status-line strong { flex-shrink: 0; font-size: 11px; letter-spacing: .045em; color: #128368; }
+.reveal-button { display: block; width: 100%; border: 0; border-radius: 13px; padding: 14px 15px;
+  margin-top: 23px; font-size: 15px; font-weight: 800; background: var(--blue); color: white;
+}
+.reveal-button:hover { background: #0f5985; }
+.secret-message { margin: 16px 0 0; padding: 16px; background: #fff7e6; color: #36566c;
+  border-radius: 14px; border: 1px solid #f3e4c4; line-height: 1.55; animation: cardIn .4s both;
+}
+.restart-button { margin-top: 18px; padding: 8px 10px; border: 0; background: transparent;
+  color: #477b98; font-size: 13px; text-decoration: underline; text-underline-offset: 3px;
+}
+.confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.confetti-piece { position: absolute; top: -15px; width: 8px; height: 13px; border-radius: 4px 0 4px 0;
+  background: #65c7dd; animation: confettiDrop 2.4s ease-in forwards;
+}
+.confetti-piece:nth-child(2n) { background: #f4c59b; }
+.confetti-piece:nth-child(3n) { background: #a1dca6; }
+@keyframes confettiDrop { from { transform: translateY(-10px) rotate(0); opacity: .95; }
+  to { transform: translateY(620px) translateX(35px) rotate(500deg); opacity: 0; } }
+
+@media (max-width: 360px) {
+  .card { padding: 22px 17px; }
+  .choice { width: 92px; }
+  .choice--yes { left: calc(50% - 99px); }
+  .choice--no { left: calc(50% + 7px); }
+  .status-line { font-size: 12px; padding: 11px; }
+}
+@media (max-height: 640px) {
+  .page { justify-content: flex-start; }
+  .card { margin-top: 6px; }
+  .button-arena { height: 155px; }
+}
+/* Acessibilidade: pessoas que preferem menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  .petal, .wave, .card, .result-symbol, .confetti-piece, .choice--no.dodging { animation: none !important; }
+  .choice--yes { transition: none; }
+}
